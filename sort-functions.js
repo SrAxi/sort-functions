@@ -9,6 +9,7 @@
  * finds the place the element belongs in the array, and then places it there
  *
  * Max iterations: ((n-1) * n) / 2
+ * Algorithm complexity: Quadratic time complexity = O(n^2)
  *
  * @param {Array} arr
  * @returns {Array} arr
