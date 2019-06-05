@@ -5,6 +5,7 @@ const {
     bubbleSort,
     insertionSort,
     selectionSort,
+    mergeSort,
 } = require('./sort-functions');
 
 // Logging tests
@@ -12,6 +13,7 @@ function functionsTester(length) {
     console.log(`bubbleSort, size: ${length}, time: ${testIterator(bubbleSort, length)}ms`);
     console.log(`selectionSort, size: ${length}, time: ${testIterator(selectionSort, length)}ms`);
     console.log(`insertionSort, size: ${length}, time: ${testIterator(insertionSort, length)}ms`);
+    console.log(`mergeSort, size: ${length}, time: ${testIterator(mergeSort, length)}ms`);
     console.log('---------------------');
 }
 
@@ -24,9 +26,9 @@ function testPerformance() {
     functionsTester(5000);
     functionsTester(6000);
     functionsTester(7000);
-    // functionsTester(10000);
-    // functionsTester(100000);
-    // functionsTester(1000000);
+    functionsTester(10000);
+    functionsTester(12500);
+    functionsTester(15000);
 }
 
 function testIterator(fn, size) {

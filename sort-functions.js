@@ -15,6 +15,8 @@
  * @returns {Array} newArr
  */
 const insertionSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
     const newArr = [...arr];
     for (let i = 1; i < newArr.length; i++) {
         const current = newArr[i];
@@ -44,6 +46,8 @@ const insertionSort = (arr) => {
  * @returns {Array} newArr
  */
 const bubbleSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
     const newArr = [...arr];
     const lastIndex = newArr.length - 1;
 
@@ -84,6 +88,8 @@ const bubbleSort = (arr) => {
  * @returns {Array} newArr
  */
 const selectionSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
     const newArr = [...arr];
 
     const swap = (arr, currentIndex, minIndex) => {
@@ -107,8 +113,51 @@ const selectionSort = (arr) => {
     return newArr;
 };
 
+/**
+ * Merge sort
+ *
+ * Uses `Divide and Conquer` for breaking down the main array into atomic arrays,
+ * ordering them and then, merge their results
+ *
+ * Max iterations: n(log n + 1)
+ * Algorithm complexity: Linear Logarithmic time complexity = O(n*log n)
+ *
+ * @param {Array} arr
+ * @returns {*}
+ */
+const mergeSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+
+    return merge(
+        mergeSort(left), mergeSort(right)
+    );
+};
+
+const merge = (left, right) => {
+    let resultArray = [], leftIndex = 0, rightIndex = 0;
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            resultArray.push(left[leftIndex]);
+            leftIndex++; // move left array cursor
+        } else {
+            resultArray.push(right[rightIndex]);
+            rightIndex++; // move right array cursor
+        }
+    }
+
+    return resultArray
+        .concat(left.slice(leftIndex))
+        .concat(right.slice(rightIndex));
+};
+
 module.exports = {
     insertionSort,
     bubbleSort,
     selectionSort,
+    mergeSort,
 };
