@@ -4,12 +4,14 @@ const { createUnorderedArray } = require('./helpers');
 const {
     bubbleSort,
     insertionSort,
+    selectionSort,
 } = require('./sort-functions');
 
 // Logging tests
 function functionsTester(length) {
-    console.log(`insertionSort(), size: ${length}, time: ${testIterator(insertionSort, length)}ms`);
-    console.log(`bubbleSort(), size: ${length}, time: ${testIterator(bubbleSort, length)}ms`);
+    console.log(`bubbleSort, size: ${length}, time: ${testIterator(bubbleSort, length)}ms`);
+    console.log(`selectionSort, size: ${length}, time: ${testIterator(selectionSort, length)}ms`);
+    console.log(`insertionSort, size: ${length}, time: ${testIterator(insertionSort, length)}ms`);
     console.log('---------------------');
 }
 

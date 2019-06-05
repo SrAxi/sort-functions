@@ -50,7 +50,7 @@ const bubbleSort = (arr) => {
     for (let i = 0; i < newArr.length; i++) {
         let swapped = false;
 
-        for(let j = 0; j < lastIndex - i; j++) {
+        for (let j = 0; j < lastIndex - i; j++) {
             const current = newArr[j];
             const next = newArr[j + 1];
             let rightIndex = j + 1;
@@ -70,7 +70,45 @@ const bubbleSort = (arr) => {
     return newArr;
 };
 
+/**
+ * Selection sort
+ *
+ * This algorithm will first find the smallest element in the array and swap it with the element in the first position,
+ * then it will find the second smallest element and swap it with the element in the second position,
+ * and it will keep on doing this until the entire array is sorted.
+ *
+ * Max iterations: ((n-1) * n) / 2
+ * Algorithm complexity: Quadratic time complexity = O(n^2)
+ *
+ * @param {Array} arr
+ * @returns {Array} newArr
+ */
+const selectionSort = (arr) => {
+    const newArr = [...arr];
+
+    const swap = (arr, currentIndex, minIndex) => {
+        [arr[currentIndex], arr[minIndex]] = [arr[minIndex], arr[currentIndex]];
+    };
+
+    for (let i = 0; i < newArr.length; i++) {
+        let minIndex = i;
+
+        for (let j = i + 1; j < newArr.length; j++) {
+            if (newArr[minIndex] > newArr[j]) {
+                minIndex = j;
+            }
+        }
+
+        if (i !== minIndex) {
+            swap(newArr, i, minIndex);
+        }
+    }
+
+    return newArr;
+};
+
 module.exports = {
     insertionSort,
     bubbleSort,
+    selectionSort,
 };
