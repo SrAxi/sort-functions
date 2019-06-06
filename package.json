@@ -1,0 +1,23 @@
+{
+  "name": "sort-functions",
+  "version": "1.0.0",
+  "description": "Creating sort functions with different algorithms in Vanilla JS",
+  "main": "sort-functions.js",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrAxi/sort-functions.git"
+  },
+  "keywords": [],
+  "author": "Riccardo Polacci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SrAxi/sort-functions/issues"
+  },
+  "homepage": "https://github.com/SrAxi/sort-functions#readme"
+}
