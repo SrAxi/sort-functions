@@ -6,6 +6,8 @@ const {
     insertionSort,
     selectionSort,
     mergeSort,
+    quickSort,
+    prototypeSort,
 } = require('./sort-functions');
 
 // Logging tests
@@ -14,6 +16,8 @@ function functionsTester(length) {
     console.log(`selectionSort, size: ${length}, time: ${testIterator(selectionSort, length)}ms`);
     console.log(`insertionSort, size: ${length}, time: ${testIterator(insertionSort, length)}ms`);
     console.log(`mergeSort, size: ${length}, time: ${testIterator(mergeSort, length)}ms`);
+    console.log(`quickSort, size: ${length}, time: ${testIterator(quickSort, length)}ms`);
+    console.log(`prototypeSort, size: ${length}, time: ${testIterator(prototypeSort, length)}ms`);
     console.log('---------------------');
 }
 

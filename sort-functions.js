@@ -2,35 +2,7 @@
  *  Sorting arrays with different algorithms  *
  **********************************************/
 
-/**
- * Insertion sort
- *
- * Iterates through an input array and removes one element per iteration,
- * finds the place the element belongs in the array, and then places it there
- *
- * Max iterations: ((n-1) * n) / 2
- * Algorithm complexity: Quadratic time complexity = O(n^2)
- *
- * @param {Array} arr
- * @returns {Array} newArr
- */
-const insertionSort = (arr) => {
-    if (arr.length <= 1) return arr;
-
-    const newArr = [...arr];
-    for (let i = 1; i < newArr.length; i++) {
-        const current = newArr[i];
-        let leftIndex = i - 1;
-
-        while (leftIndex >= 0 && newArr[leftIndex] > current) {
-            newArr[leftIndex + 1] = newArr[leftIndex];
-            leftIndex = leftIndex - 1;
-        }
-        newArr[leftIndex + 1] = current;
-    }
-
-    return newArr;
-};
+const { defaultComparator } = require('./helpers');
 
 /**
  * Bubble sort
@@ -40,7 +12,9 @@ const insertionSort = (arr) => {
  * and then move on to compare the second and the third element, and so on.
  *
  * Max iterations: ((n-1) * n) / 2
- * Algorithm complexity: Quadratic time complexity = O(n^2)
+ * [Big-O]: O(n^2)
+ * [Big-omega]: O(n)
+ * [Big-theta]: O(n^2)
  *
  * @param {Array} arr
  * @returns {Array} newArr
@@ -82,7 +56,9 @@ const bubbleSort = (arr) => {
  * and it will keep on doing this until the entire array is sorted.
  *
  * Max iterations: ((n-1) * n) / 2
- * Algorithm complexity: Quadratic time complexity = O(n^2)
+ * [Big-O]: O(n^2)
+ * [Big-omega]: O(n^2)
+ * [Big-theta]: O(n^2)
  *
  * @param {Array} arr
  * @returns {Array} newArr
@@ -114,16 +90,50 @@ const selectionSort = (arr) => {
 };
 
 /**
+ * Insertion sort
+ *
+ * Iterates through an input array and removes one element per iteration,
+ * finds the place the element belongs in the array, and then places it there
+ *
+ * Max iterations: ((n-1) * n) / 2
+ * [Big-O]: O(n^2)
+ * [Big-omega]: O(n)
+ * [Big-theta]: O(n^2)
+ *
+ * @param {Array} arr
+ * @returns {Array} newArr
+ */
+const insertionSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
+    const newArr = [...arr];
+    for (let i = 1; i < newArr.length; i++) {
+        const current = newArr[i];
+        let leftIndex = i - 1;
+
+        while (leftIndex >= 0 && newArr[leftIndex] > current) {
+            newArr[leftIndex + 1] = newArr[leftIndex];
+            leftIndex = leftIndex - 1;
+        }
+        newArr[leftIndex + 1] = current;
+    }
+
+    return newArr;
+};
+
+/**
  * Merge sort
  *
  * Uses `Divide and Conquer` for breaking down the main array into atomic arrays,
  * ordering them and then, merge their results
  *
  * Max iterations: n(log n + 1)
- * Algorithm complexity: Linear Logarithmic time complexity = O(n*log n)
+ * [Big-O]: O(n*log n)
+ * [Big-omega]: O(n*log n)
+ * [Big-theta]: O(n*log n)
  *
  * @param {Array} arr
- * @returns {*}
+ * @returns {Array}
  */
 const mergeSort = (arr) => {
     if (arr.length <= 1) return arr;
@@ -155,9 +165,83 @@ const merge = (left, right) => {
         .concat(right.slice(rightIndex));
 };
 
+/**
+ * Quick sort
+ *
+ * Uses `Divide and Conquer` for breaking down the main array into atomic arrays,
+ * ordering them while splitting
+ *
+ * Max iterations: n(log n + 1)
+ * [Big-O]: O(n2)
+ * [Big-omega]: O(n*log n)
+ * [Big-theta]: O(n*log n)
+ *
+ * @param {Array} arr
+ * @param {Function} comparator
+ * @returns {Array} newArr
+ */
+const quickSort = (
+    arr,
+    comparator = defaultComparator
+) => {
+    if (arr.length <= 1) return arr;
+
+    const newArr = [...arr];
+
+    // Recursively sort sub-arrays.
+    const recursiveSort = (start, end) => {
+        // If this sub-array is empty, it's sorted.
+        if (end - start < 1) {
+            return;
+        }
+
+        const pivotValue = newArr[end];
+        let smallestIndex = start;
+        for (let i = start; i < end; i++) {
+            const sort = comparator(newArr[i], pivotValue);
+            // Current element is less than the pivot value.
+            if (sort === -1) {
+                // If the element just to the right of the smallest index,
+                // isn't this element, swap them.
+                if (smallestIndex !== i) {
+                    const temp = newArr[smallestIndex];
+                    newArr[smallestIndex] = newArr[i];
+                    newArr[i] = temp;
+                }
+
+                // Move the smallest index to the right by one,
+                // denoting an increase in the less-than sub-array size.
+                smallestIndex++;
+            }
+        }
+
+        // Move the pivot value to between the split.
+        newArr[end] = newArr[smallestIndex];
+        newArr[smallestIndex] = pivotValue;
+
+        // Recursively sort the less-than and greater-than arrays.
+        recursiveSort(start, smallestIndex - 1);
+        recursiveSort(smallestIndex + 1, end);
+    };
+
+    // Sort the entire array.
+    recursiveSort(0, arr.length - 1);
+    return newArr;
+};
+
+/**
+ * Array.prototype.sort
+ *
+ * @param {Array} arr
+ * @returns {Array}
+ */
+const prototypeSort = (arr) => arr.sort((a, b) => a - b);
+
 module.exports = {
     insertionSort,
     bubbleSort,
     selectionSort,
     mergeSort,
+    quickSort,
+    prototypeSort,
 };
