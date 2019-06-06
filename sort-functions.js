@@ -5,6 +5,14 @@
 const { defaultComparator } = require('./helpers');
 
 /**
+ * Array.prototype.sort
+ *
+ * @param {Array} arr
+ * @returns {Array}
+ */
+const prototypeSort = (arr) => arr.sort(defaultComparator);
+
+/**
  * Bubble sort
  *
  * Compares the first element of the array with the second element,
@@ -142,27 +150,27 @@ const mergeSort = (arr) => {
     const left = arr.slice(0, middle);
     const right = arr.slice(middle);
 
+    const merge = (left, right) => {
+        let resultArray = [], leftIndex = 0, rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] < right[rightIndex]) {
+                resultArray.push(left[leftIndex]);
+                leftIndex++; // move left array cursor
+            } else {
+                resultArray.push(right[rightIndex]);
+                rightIndex++; // move right array cursor
+            }
+        }
+
+        return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
+    };
+
     return merge(
         mergeSort(left), mergeSort(right)
     );
-};
-
-const merge = (left, right) => {
-    let resultArray = [], leftIndex = 0, rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex] < right[rightIndex]) {
-            resultArray.push(left[leftIndex]);
-            leftIndex++; // move left array cursor
-        } else {
-            resultArray.push(right[rightIndex]);
-            rightIndex++; // move right array cursor
-        }
-    }
-
-    return resultArray
-        .concat(left.slice(leftIndex))
-        .concat(right.slice(rightIndex));
 };
 
 /**
@@ -230,12 +238,90 @@ const quickSort = (
 };
 
 /**
- * Array.prototype.sort
+ * Heap sort
+ *
+ * Creates a Max-Heap out of the unordered array.
+ * Then a sorted array is created by repeatedly removing the largest element from the heap,
+ * and inserting it into the array.
+ * The heap is reconstructed after each removal.
+ *
+ * Max iterations: n(log n + 1)
+ * [Big-O]: O(n*log n)
+ * [Big-omega]: O(n*log n)
+ * [Big-theta]: O(n*log n)
  *
  * @param {Array} arr
- * @returns {Array}
+ * @returns {Array} newArr
  */
-const prototypeSort = (arr) => arr.sort(defaultComparator);
+const heapSort = (arr) => {
+    if (arr.length <= 1) return arr;
+
+    const newArr = [...arr];
+
+    const buildMaxHeap = (array) => {
+        let i;
+        i = array.length / 2 - 1;
+        i = Math.floor(i);
+
+        // Build a max heap out of
+        // all the array elements passed in.
+        while (i >= 0) {
+            heapify(array, i, array.length);
+            i -= 1;
+        }
+    };
+
+    const heapify = (heap, i, max) => {
+        let index, leftChild, righChild;
+
+        while (i < max) {
+            index = i;
+
+            leftChild = 2 * i + 1;
+            righChild = leftChild + 1;
+
+            if (leftChild < max && heap[leftChild] > heap[index]) {
+                index = leftChild;
+            }
+
+            if (righChild < max && heap[righChild] > heap[index]) {
+                index = righChild;
+            }
+
+            if (index === i) {
+                return;
+            }
+
+            swap(heap, i, index);
+
+            i = index;
+        }
+    };
+
+    const swap = (array, firstItemIndex, lastItemIndex) => {
+        let tmp = array[firstItemIndex];
+
+        // Swap first and last items in the array.
+        array[firstItemIndex] = array[lastItemIndex];
+        array[lastItemIndex] = tmp;
+    };
+
+    // Build our max heap.
+    buildMaxHeap(newArr);
+
+    // Find last element.
+    let lastElement = newArr.length - 1;
+
+    // Continue heap sorting until we have
+    // just one element left in the array.
+    while (lastElement > 0) {
+        swap(newArr, 0, lastElement);
+        heapify(newArr, 0, lastElement);
+        lastElement -= 1
+    }
+
+    return newArr;
+};
 
 module.exports = {
     insertionSort,
@@ -244,4 +330,5 @@ module.exports = {
     mergeSort,
     quickSort,
     prototypeSort,
+    heapSort,
 };

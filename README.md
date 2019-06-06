@@ -5,12 +5,15 @@ Creating sort functions with different algorithms in JavaScript and comparing th
 - `insertionSort`
 - `mergeSort`
 - `quickSort`
-- `heapSort` _(Not yet implemented, working on it)_
+- `heapSort`
+- `bucketSort` _(Not yet implemented)_
+- `radixSort` _(Not yet implemented)_
+- `countingSort` _(Not yet implemented)_
 
 -------------------
 To run the performance test: `node performance-test.js`
 
-To run the Unit tests: `npm test` or `yarn test` _(Not yet created unit tests)_
+To run the Unit tests: `npm test` or `yarn test`
 
 -------------------
 Performance tests are done by running the functions with ascending parameters 100 times each and calculating an average for each parameter set.
@@ -20,81 +23,92 @@ They also return the maximum amount of comparisons for each algorithm for the gi
 An example of the Performance test:
 
 ```
-bubbleSort, size: 20, time: 0.0245ms
-selectionSort, size: 20, time: 0.0305ms
-insertionSort, size: 20, time: 0.0242ms
-mergeSort, size: 20, time: 0.0620ms
-quickSort, size: 20, time: 0.0227ms
-prototypeSort, size: 20, time: 0.0252ms
+bubbleSort, size: 20, time: 0.0266ms
+selectionSort, size: 20, time: 0.0345ms
+insertionSort, size: 20, time: 0.0316ms
+mergeSort, size: 20, time: 0.0612ms
+quickSort, size: 20, time: 0.0210ms
+heapSort, size: 20, time: 0.0397ms
+prototypeSort, size: 20, time: 0.0269ms
 ---------------------
-bubbleSort, size: 100, time: 0.0168ms
-selectionSort, size: 100, time: 0.0194ms
-insertionSort, size: 100, time: 0.0117ms
-mergeSort, size: 100, time: 0.1116ms
-quickSort, size: 100, time: 0.0204ms
-prototypeSort, size: 100, time: 0.0490ms
+bubbleSort, size: 100, time: 0.0212ms
+selectionSort, size: 100, time: 0.0222ms
+insertionSort, size: 100, time: 0.0190ms
+mergeSort, size: 100, time: 0.1173ms
+quickSort, size: 100, time: 0.0190ms
+heapSort, size: 100, time: 0.0384ms
+prototypeSort, size: 100, time: 0.0562ms
 ---------------------
-bubbleSort, size: 1000, time: 1.0647ms
-selectionSort, size: 1000, time: 0.7153ms
-insertionSort, size: 1000, time: 0.3501ms
-mergeSort, size: 1000, time: 0.6837ms
-quickSort, size: 1000, time: 0.1245ms
-prototypeSort, size: 1000, time: 0.0973ms
+bubbleSort, size: 1000, time: 1.1603ms
+selectionSort, size: 1000, time: 0.7915ms
+insertionSort, size: 1000, time: 0.3992ms
+mergeSort, size: 1000, time: 0.7684ms
+quickSort, size: 1000, time: 0.1470ms
+heapSort, size: 1000, time: 0.1891ms
+prototypeSort, size: 1000, time: 0.0319ms
 ---------------------
-bubbleSort, size: 2500, time: 6.3165ms
-selectionSort, size: 2500, time: 3.8384ms
-insertionSort, size: 2500, time: 1.9337ms
-mergeSort, size: 2500, time: 1.8618ms
-quickSort, size: 2500, time: 0.3055ms
-prototypeSort, size: 2500, time: 0.3594ms
+bubbleSort, size: 2500, time: 6.6856ms
+selectionSort, size: 2500, time: 4.0737ms
+insertionSort, size: 2500, time: 1.9582ms
+mergeSort, size: 2500, time: 1.7792ms
+quickSort, size: 2500, time: 0.3163ms
+heapSort, size: 2500, time: 0.4895ms
+prototypeSort, size: 2500, time: 0.3695ms
 ---------------------
-bubbleSort, size: 5000, time: 28.6884ms
-selectionSort, size: 5000, time: 15.5233ms
-insertionSort, size: 5000, time: 7.7650ms
-mergeSort, size: 5000, time: 3.3976ms
-quickSort, size: 5000, time: 0.6280ms
-prototypeSort, size: 5000, time: 0.5932ms
+bubbleSort, size: 5000, time: 29.4046ms
+selectionSort, size: 5000, time: 15.2932ms
+insertionSort, size: 5000, time: 7.6892ms
+mergeSort, size: 5000, time: 3.5845ms
+quickSort, size: 5000, time: 0.6391ms
+heapSort, size: 5000, time: 1.0170ms
+prototypeSort, size: 5000, time: 0.6480ms
 ---------------------
-bubbleSort, size: 7500, time: 71.8745ms
-selectionSort, size: 7500, time: 33.7437ms
-insertionSort, size: 7500, time: 16.5783ms
-mergeSort, size: 7500, time: 5.1131ms
-quickSort, size: 7500, time: 0.9594ms
-prototypeSort, size: 7500, time: 0.9097ms
+bubbleSort, size: 7500, time: 74.8611ms
+selectionSort, size: 7500, time: 33.9444ms
+insertionSort, size: 7500, time: 19.9142ms
+mergeSort, size: 7500, time: 5.5396ms
+quickSort, size: 7500, time: 1.0129ms
+heapSort, size: 7500, time: 1.6278ms
+prototypeSort, size: 7500, time: 0.9575ms
 ---------------------
-bubbleSort, size: 10000, time: 135.5337ms
-selectionSort, size: 10000, time: 59.2515ms
-insertionSort, size: 10000, time: 29.1070ms
-mergeSort, size: 10000, time: 6.6718ms
-quickSort, size: 10000, time: 1.2797ms
-prototypeSort, size: 10000, time: 1.2711ms
+bubbleSort, size: 10000, time: 140.4983ms
+selectionSort, size: 10000, time: 61.9216ms
+insertionSort, size: 10000, time: 30.0909ms
+mergeSort, size: 10000, time: 7.1316ms
+quickSort, size: 10000, time: 1.3354ms
+heapSort, size: 10000, time: 2.1697ms
+prototypeSort, size: 10000, time: 1.2969ms
 ---------------------
-bubbleSort, size: 12500, time: 219.6577ms
-selectionSort, size: 12500, time: 91.6613ms
-insertionSort, size: 12500, time: 46.3462ms
-mergeSort, size: 12500, time: 8.5087ms
-quickSort, size: 12500, time: 1.6219ms
-prototypeSort, size: 12500, time: 1.6286ms
+bubbleSort, size: 12500, time: 226.7690ms
+selectionSort, size: 12500, time: 97.7987ms
+insertionSort, size: 12500, time: 48.1837ms
+mergeSort, size: 12500, time: 8.8496ms
+quickSort, size: 12500, time: 1.6705ms
+heapSort, size: 12500, time: 2.7578ms
+prototypeSort, size: 12500, time: 1.6187ms
 ---------------------
-bubbleSort, size: 15000, time: 321.8279ms
-selectionSort, size: 15000, time: 133.9341ms
-insertionSort, size: 15000, time: 65.7065ms
-mergeSort, size: 15000, time: 10.1555ms
-quickSort, size: 15000, time: 1.9573ms
-prototypeSort, size: 15000, time: 1.9429ms
+bubbleSort, size: 15000, time: 332.6970ms
+selectionSort, size: 15000, time: 137.7163ms
+insertionSort, size: 15000, time: 68.3814ms
+mergeSort, size: 15000, time: 10.5763ms
+quickSort, size: 15000, time: 2.0045ms
+heapSort, size: 15000, time: 3.3426ms
+prototypeSort, size: 15000, time: 2.0357ms
 ---------------------
-bubbleSort, size: 20000, time: 602.1705ms
-selectionSort, size: 20000, time: 236.2664ms
-insertionSort, size: 20000, time: 118.1693ms
-mergeSort, size: 20000, time: 14.4923ms
-quickSort, size: 20000, time: 2.8437ms
-prototypeSort, size: 20000, time: 2.8451ms
+bubbleSort, size: 20000, time: 611.2214ms
+selectionSort, size: 20000, time: 243.2717ms
+insertionSort, size: 20000, time: 120.8312ms
+mergeSort, size: 20000, time: 14.6156ms
+quickSort, size: 20000, time: 2.7241ms
+heapSort, size: 20000, time: 4.6056ms
+prototypeSort, size: 20000, time: 2.8483ms
 ---------------------
-bubbleSort, size: 50000, time: 4101.6372ms
-selectionSort, size: 50000, time: 1476.9916ms
-insertionSort, size: 50000, time: 729.0564ms
-mergeSort, size: 50000, time: 35.5315ms
-quickSort, size: 50000, time: 7.0573ms
-prototypeSort, size: 50000, time: 8.0877ms
+bubbleSort, size: 50000, time: 4044.0472ms
+selectionSort, size: 50000, time: 1496.9957ms
+insertionSort, size: 50000, time: 727.5606ms
+mergeSort, size: 50000, time: 36.6104ms
+quickSort, size: 50000, time: 6.9871ms
+heapSort, size: 50000, time: 12.0079ms
+prototypeSort, size: 50000, time: 7.3410ms
 ---------------------
 ```
