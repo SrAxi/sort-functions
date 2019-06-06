@@ -90,4 +90,11 @@ mergeSort, size: 20000, time: 14.4923ms
 quickSort, size: 20000, time: 2.8437ms
 prototypeSort, size: 20000, time: 2.8451ms
 ---------------------
+bubbleSort, size: 50000, time: 4101.6372ms
+selectionSort, size: 50000, time: 1476.9916ms
+insertionSort, size: 50000, time: 729.0564ms
+mergeSort, size: 50000, time: 35.5315ms
+quickSort, size: 50000, time: 7.0573ms
+prototypeSort, size: 50000, time: 8.0877ms
+---------------------
 ```

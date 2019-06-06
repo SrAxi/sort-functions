@@ -235,7 +235,7 @@ const quickSort = (
  * @param {Array} arr
  * @returns {Array}
  */
-const prototypeSort = (arr) => arr.sort((a, b) => a - b);
+const prototypeSort = (arr) => arr.sort(defaultComparator);
 
 module.exports = {
     insertionSort,

@@ -28,11 +28,12 @@ function testPerformance() {
     functionsTester(1000);
     functionsTester(2500);
     functionsTester(5000);
-    functionsTester(6000);
-    functionsTester(7000);
+    functionsTester(7500);
     functionsTester(10000);
     functionsTester(12500);
     functionsTester(15000);
+    functionsTester(20000);
+    // functionsTester(50000);
 }
 
 function testIterator(fn, size) {
