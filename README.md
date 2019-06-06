@@ -10,7 +10,7 @@ Creating sort functions with different algorithms in JavaScript and comparing th
 -------------------
 To run the performance test: `node performance-test.js`
 
-To run the Unit tests: `npm test` or `yarn test`
+To run the Unit tests: `npm test` or `yarn test` _(Not yet created unit tests)_
 
 -------------------
 Performance tests are done by running the functions with ascending parameters 100 times each and calculating an average for each parameter set.
