@@ -4,6 +4,7 @@
   "description": "Creating sort functions with different algorithms in Vanilla JS",
   "main": "sort-functions.js",
   "devDependencies": {
+    "function-performance-test": "^1.0.2",
     "jest": "^24.8.0"
   },
   "scripts": {

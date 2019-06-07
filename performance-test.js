@@ -1,5 +1,4 @@
-const { performance } = require('perf_hooks');
-
+const { performanceTest } = require('function-performance-test');
 const { createUnorderedArray } = require('./helpers');
 const {
     bubbleSort,
@@ -13,13 +12,21 @@ const {
 
 // Logging tests
 function functionsTester(length) {
-    console.log(`bubbleSort, size: ${length}, time: ${testIterator(bubbleSort, length)}ms`);
-    console.log(`selectionSort, size: ${length}, time: ${testIterator(selectionSort, length)}ms`);
-    console.log(`insertionSort, size: ${length}, time: ${testIterator(insertionSort, length)}ms`);
-    console.log(`mergeSort, size: ${length}, time: ${testIterator(mergeSort, length)}ms`);
-    console.log(`quickSort, size: ${length}, time: ${testIterator(quickSort, length)}ms`);
-    console.log(`heapSort, size: ${length}, time: ${testIterator(heapSort, length)}ms`);
-    console.log(`prototypeSort, size: ${length}, time: ${testIterator(prototypeSort, length)}ms`);
+    const arr = createUnorderedArray(length);
+    const testSubjects = [
+        { fn: bubbleSort, args: [arr], options: { iterations: 100 } },
+        { fn: selectionSort, args: [arr], options: { iterations: 100 } },
+        { fn: insertionSort, args: [arr], options: { iterations: 100 } },
+        { fn: mergeSort, args: [arr], options: { iterations: 100 } },
+        { fn: quickSort, args: [arr], options: { iterations: 100 } },
+        { fn: heapSort, args: [arr], options: { iterations: 100 } },
+        { fn: prototypeSort, args: [arr], options: { iterations: 100 } },
+    ];
+    const pt = performanceTest(testSubjects);
+    const results = pt.run();
+    results.forEach((result) => {
+        console.log(`${result.functionName}, size: ${length}, average: ${result.averageTime}ms`);
+    });
     console.log('---------------------');
 }
 
@@ -36,20 +43,6 @@ function testPerformance() {
     functionsTester(15000);
     // functionsTester(20000);
     // functionsTester(50000);
-}
-
-function testIterator(fn, size) {
-    let durationArr = [], t0, t1;
-    const arr = createUnorderedArray(size);
-    for (let i = 0; i < 100; i++) {
-        t0 = performance.now();
-        fn(arr);
-        t1 = performance.now();
-        durationArr.push(+(t1 - t0));
-    }
-    const durationsSum = durationArr.reduce((a, b) => a + b, 0);
-    const averageDuration = durationsSum / durationArr.length;
-    return averageDuration.toFixed(4);
 }
 
 testPerformance();
